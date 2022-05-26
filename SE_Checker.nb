@@ -1,0 +1,203 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      6920,        195]
+NotebookOptionsPosition[      6418,        177]
+NotebookOutlinePosition[      6840,        194]
+CellTagsIndexPosition[      6797,        191]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Error", " ", "Computation", " ", "of", " ", "the", " ", "SE"}], 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+   "Pass", " ", "in", " ", "values", " ", "of", " ", "\[Alpha]", " ", "and", 
+    " ", "\[Lambda]", " ", "and", " ", "q", " ", "and", " ", "p"}], "*)"}], 
+  " ", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"\[Alpha]", " ", "=", "  ", "0.05040045"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"\[Lambda]", " ", "=", " ", "0.01812749"}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+    "Empty", " ", "Table", " ", "for", " ", "storing", " ", "errors", " ", 
+     "from", " ", "numerically", " ", "solving", " ", "SE"}], "*)"}], " ", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ErrorVals", " ", "=", " ", 
+     RowBox[{"Table", "[", 
+      RowBox[{"0", ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", 
+         RowBox[{"Length", "[", "trainingLabels", "]"}]}], "}"}]}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"Compute", " ", "the", " ", "error"}], "*)"}], " ", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"evalue", " ", "=", " ", 
+     RowBox[{"en", " ", "/.", " ", 
+      RowBox[{"FindRoot", "[", 
+       RowBox[{
+        RowBox[{"solprime", "[", 
+         RowBox[{"0", ",", "en", ",", "\[Alpha]", ",", "\[Lambda]"}], "]"}], 
+        ",", 
+        RowBox[{"{", 
+         RowBox[{"en", ",", "0.1", ",", "1"}], "}"}], ",", 
+        RowBox[{"AccuracyGoal", " ", "->", 
+         RowBox[{"10", "^", 
+          RowBox[{"-", "16"}]}]}], ",", 
+        RowBox[{"MaxIterations", " ", "->", " ", "1500"}], ",", 
+        RowBox[{"Method", " ", "->", "\"\<Secant\>\""}]}], "]"}]}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"efunc", "[", "x_", "]"}], " ", "=", " ", 
+     RowBox[{
+      RowBox[{"u", "[", "x", "]"}], " ", "/.", 
+      RowBox[{
+       RowBox[{"wavefunc", "[", 
+        RowBox[{"evalue", ",", " ", "\[Alpha]", ",", "\[Lambda]"}], "]"}], 
+       "[", 
+       RowBox[{"[", "1", "]"}], "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"\[Psi]nn", " ", ":=", " ", 
+     RowBox[{"Piecewise", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"efunc", "[", 
+           RowBox[{"-", "x"}], "]"}], ",", 
+          RowBox[{"x", ">", "0"}]}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"efunc", "[", "x", "]"}], ",", 
+          RowBox[{"x", "\[LessEqual]", "0"}]}], "}"}]}], "}"}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"normconst", " ", ":=", " ", 
+     RowBox[{"Sqrt", "[", 
+      RowBox[{"NIntegrate", "[", 
+       RowBox[{
+        RowBox[{"\[Psi]nn", "^", "2"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", 
+          RowBox[{"-", "L"}], ",", "L"}], "}"}]}], "]"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"\[Psi]", "[", "x_", "]"}], " ", ":=", " ", 
+     RowBox[{"\[Psi]nn", "/", "normconst"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"eqnTest", "[", "x_", "]"}], " ", "=", " ", 
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"\[Psi]", "[", "x", "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "2"}], "}"}]}], "]"}], "+", " ", 
+      RowBox[{"2", 
+       RowBox[{"(", 
+        RowBox[{"evalue", " ", "-", " ", 
+         RowBox[{"v", "[", "x", "]"}]}], ")"}], 
+       RowBox[{"\[Psi]", "[", "x", "]"}]}]}]}], ";"}], "\[IndentingNewLine]", 
+   
+   RowBox[{"(*", 
+    RowBox[{"error", " ", "across", " ", "discrete", " ", "x", " ", 
+     RowBox[{"values", ":", " ", 
+      RowBox[{
+      "error", " ", "across", " ", "a", " ", "given", " ", "well", " ", 
+       "configuration", " ", "for", " ", "a", " ", "single", " ", "\[Alpha]", 
+       " ", "\[Lambda]", " ", "pair"}]}]}], "*)"}], " ", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"error", " ", "=", " ", 
+     RowBox[{"NIntegrate", "[", 
+      RowBox[{
+       RowBox[{"eqnTest", "[", "x", "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", 
+         RowBox[{"-", "L"}], ",", "L"}], "}"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"Print", "[", "error", "]"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{
+     "For", " ", "creating", " ", "a", " ", "dataset", " ", "of", " ", 
+      "errors", " ", "across", " ", "multiple", " ", "\[Alpha]"}], ",", " ", 
+     RowBox[{"\[Lambda]", " ", "pairs"}]}], "*)"}], " ", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"ErrorVals", "[", 
+       RowBox[{"[", "m", "]"}], "]"}], "=", " ", "error"}], ";"}], "*)"}], 
+   " "}]}]], "Input",
+ CellChangeTimes->{{3.862577219817565*^9, 3.862577287185248*^9}, {
+   3.862577881776072*^9, 3.862577893322968*^9}, {3.862577987233962*^9, 
+   3.862577999663329*^9}, {3.86257818859838*^9, 3.862578225322237*^9}, {
+   3.862578311662862*^9, 3.8625783657920628`*^9}, 3.8625784213302917`*^9, {
+   3.862578742863748*^9, 3.86257876467449*^9}, {3.862579584297866*^9, 
+   3.8625795938321867`*^9}, {3.862579687848822*^9, 3.8625796952393417`*^9}, {
+   3.862582200344438*^9, 3.862582216308403*^9}, {3.862591995235013*^9, 
+   3.8625920841053543`*^9}, {3.862592122927413*^9, 
+   3.862592124634926*^9}},ExpressionUUID->"ea093661-6834-4d86-a440-\
+30fefdb22880"],
+
+Cell[BoxData[
+ RowBox[{"-", "2.1740404039227784`*^-8"}]], "Print",
+ CellChangeTimes->{
+  3.862578347407445*^9, {3.862578739708475*^9, 3.862578768053216*^9}, 
+   3.862579597037939*^9, 3.862579698946706*^9, 3.862582220552546*^9},
+ CellLabel->
+  "During evaluation of \
+In[128]:=",ExpressionUUID->"be5db78b-8896-45be-9ea8-b69c40f67d65"]
+}, Open  ]]
+},
+WindowSize->{808, 676},
+WindowMargins->{{Automatic, 308}, {Automatic, 2}},
+Magnification:>1.5 Inherited,
+FrontEndVersion->"12.3 for Mac OS X x86 (64-bit) (July 9, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"751461a3-57db-4f80-8cc5-40fdae3c6432"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 5486, 143, 853, "Input",ExpressionUUID->"ea093661-6834-4d86-a440-30fefdb22880"],
+Cell[6069, 167, 333, 7, 36, "Print",ExpressionUUID->"be5db78b-8896-45be-9ea8-b69c40f67d65"]
+}, Open  ]]
+}
+]
+*)
+

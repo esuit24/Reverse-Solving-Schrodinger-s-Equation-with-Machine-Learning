@@ -8,3 +8,5 @@ Python Files:
 (1) Data_read_inputmod: This file compiles the datasets exported by Mathematica to prepare to pass into the jupyter notebook. It compiles datsets generated with varying discrete x values with the goal of finding the best neural network structure and create the best input:hidden layer ratio. 
 Jupyter Notebook Files:
 (1) Probability-Lambda-Alpha-NN-Input-Mod: This is the file that evaluates the datasets in a neural network. It imports the python file above to gain access to the datasets from Mathematica. Based on the second index value in the 2nd cell, you can change the number of discrete X values used in the neural network and consequentally, which Mathematica file to use in the neural network. 
+
+I have also included text files to be modified each time you run the mathematica dataset and export under the same name. 

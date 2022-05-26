@@ -2,6 +2,7 @@
 This repo contains Mathematica, python, and Jupyter notebook files that generate datasets, process the datasets, and create predictions through a neural network
 Mathematica Notebooks: 
 (1) Shooting File: This is the main file that computes the training and testing datasets and labels to be used by the neural network. It solves the Schrodinger Equation using random values of alpha and lambda (potential energy equation coefficients that characterize the potential energy of the system) to produce values of psi. It does this for as many pairs of alpha and lambda are needed for the full training and testing set. You can change the number of discreteX values in the dataset to be compiled in the python file. 
+(2) Adapted Shooting File: The file co-opted from Young's code that successfully solves the Schrodinger equation 
 (2) SE Checker: This file takes in values of alpha and lambda and computes the error between the value computed by the numerical solver and the true value using the notion that all elements of the equation moved to 1 side should equal 0. It takes the integral over all x values for a specific alpha/lambda pair to get the error for a given potential energy configuration. We can use this file to generate a table of SE error values to generate a histogram of errors and find where the outliers lie in the scale of errors 
 (3) Replace Outlier: This is the file that replaces values of psi, alpha, and lambda in a given file with the goal of removing and replacing outliers in the dataset. 
 Python Files: 
